@@ -12,6 +12,7 @@ from urllib.parse import urlunsplit
 from .datastructures import iter_multi_items
 
 
+
 def _codec_error_url_quote(e: UnicodeError) -> tuple[str, int]:
     """Used in :func:`uri_to_iri` after unquoting to re-quote any
     invalid bytes.
@@ -214,3 +215,7 @@ def _urlencode(query: t.Mapping[str, str] | t.Iterable[tuple[str, str]]) -> str:
     items = [x for x in iter_multi_items(query) if x[1] is not None]
     # safe = https://url.spec.whatwg.org/#percent-encoded-bytes
     return urlencode(items, safe="!$'()*,/:;?@")
+
+# Backwards compatibility fix
+url_decode = unqoute
+url_encode = urlencode
